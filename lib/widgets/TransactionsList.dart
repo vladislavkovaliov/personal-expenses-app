@@ -17,10 +17,10 @@ class TransactionsList extends StatelessWidget {
             return Card(
               child: Row(children: [
                 Container(
-                  width: 100.0,
+                  width: 150.0,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.blueAccent,
+                      color: Theme.of(context).primaryColor,
                       width: 1.0,
                     ),
                   ),
@@ -47,10 +47,7 @@ class TransactionsList extends StatelessWidget {
                   children: [
                     Text(
                       transactions[index].title,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
                       DateFormat('yyyy-mm-dd').format(
