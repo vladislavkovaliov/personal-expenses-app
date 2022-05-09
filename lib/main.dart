@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:personal_expenses_app/widgets/UserTransactions.dart';
+import 'package:personal_expenses_app/models/transaction.dart';
+import 'package:personal_expenses_app/widgets/NewTransaction.dart';
+import 'package:personal_expenses_app/widgets/TransactionsList.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,6 +42,53 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> transactions = [
+    Transaction(
+      id: '1',
+      title: "new laptop",
+      amount: 2500,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '1',
+      title: "new iphone",
+      amount: 1100,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '1',
+      title: "new tv",
+      amount: 500,
+      date: DateTime.now(),
+    ),
+  ];
+
+  void addTransaction(String title, double amount) {
+    final newTransaction = Transaction(
+      id: DateTime.now().toString(),
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+    );
+
+    setState(() {
+      transactions.add(newTransaction);
+    });
+  }
+
+  void startNewTransaction(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return GestureDetector(
+          child: NewTransaction(addTransaction),
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,8 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Text("chart"),
               ),
             ),
-            UserTransactions(),
+            TransactionsList(transactions),
           ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => startNewTransaction(context),
+        child: const Icon(
+          Icons.add,
         ),
       ),
     );

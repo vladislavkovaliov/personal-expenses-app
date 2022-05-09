@@ -24,16 +24,22 @@ class TransactionsList extends StatelessWidget {
                       width: 1.0,
                     ),
                   ),
-                  padding: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(
+                    10.0,
+                  ),
                   margin: const EdgeInsets.symmetric(
-                      vertical: 10.0, horizontal: 10.0),
+                    vertical: 10.0,
+                    horizontal: 10.0,
+                  ),
                   child: Center(
                     child: Text(
-                        '\$${transactions[index].amount.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0,
-                            color: Colors.blueAccent)),
+                      '\$${transactions[index].amount.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
                   ),
                 ),
                 Column(
@@ -42,11 +48,17 @@ class TransactionsList extends StatelessWidget {
                     Text(
                       transactions[index].title,
                       style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
                     ),
                     Text(
-                      DateFormat('yyyy-mm-dd').format(transactions[index].date),
-                      style: const TextStyle(color: Colors.grey),
+                      DateFormat('yyyy-mm-dd').format(
+                        transactions[index].date,
+                      ),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                      ),
                     ),
                   ],
                 )

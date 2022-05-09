@@ -25,23 +25,35 @@ class NewTransaction extends StatelessWidget {
       elevation: 4.0,
       child: Container(
         padding: const EdgeInsets.all(8.0),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-          TextField(
-            controller: titleController,
-            onSubmitted: (_) => submitData(),
-            decoration: InputDecoration(labelText: 'Title'),
-          ),
-          TextField(
-            controller: amountController,
-            keyboardType: TextInputType.number,
-            onSubmitted: (_) => submitData(),
-            decoration: InputDecoration(labelText: 'Amount'),
-          ),
-          FlatButton(
-            onPressed: submitData,
-            child: const Text('Add Transaction'),
-          ),
-        ]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            TextField(
+              controller: titleController,
+              onSubmitted: (_) => submitData(),
+              decoration: InputDecoration(
+                labelText: 'Title',
+              ),
+            ),
+            TextField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => submitData(),
+              decoration: InputDecoration(
+                labelText: 'Amount',
+              ),
+            ),
+            FlatButton(
+              onPressed: submitData,
+              child: const Text(
+                'Add Transaction',
+                style: TextStyle(
+                  color: Colors.blueAccent,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
