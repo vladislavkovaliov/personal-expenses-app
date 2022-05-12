@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:personal_expenses_app/models/transaction.dart';
+import 'package:personal_expenses_app/widgets/Chart.dart';
 import 'package:personal_expenses_app/widgets/NewTransaction.dart';
 import 'package:personal_expenses_app/widgets/TransactionsList.dart';
 
@@ -12,21 +13,11 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primaryColor: Colors.blueAccent,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -60,32 +51,46 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transactions = [
-    // Transaction(
-    //   id: '1',
-    //   title: "new laptop",
-    //   amount: 2500,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: '1',
-    //   title: "new iphone",
-    //   amount: 1100,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: '1',
-    //   title: "new tv",
-    //   amount: 500,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: '1',
+      title: "new laptop",
+      amount: 2500,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '1',
+      title: "new iphone",
+      amount: 1100,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: '1',
+      title: "new tv",
+      amount: 500,
+      date: DateTime.now(),
+    ),
   ];
 
-  void addTransaction(String title, double amount) {
+  List<Transaction> get recentTransactions {
+    return transactions
+        .where(
+          (element) => element.date.isAfter(
+            DateTime.now().subtract(
+              const Duration(
+                days: 7,
+              ),
+            ),
+          ),
+        )
+        .toList();
+  }
+
+  void addTransaction(String title, double amount, DateTime date) {
     final newTransaction = Transaction(
       id: DateTime.now().toString(),
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: date,
     );
 
     setState(() {
@@ -96,10 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
   void startNewTransaction(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (ctx) {
+      builder: (_) {
         return GestureDetector(
           child: NewTransaction(addTransaction),
-          onTap: () {},
+          onTap: () {
+            FocusScope.of(context).requestFocus(new FocusNode());
+          },
           behavior: HitTestBehavior.opaque,
         );
       },
@@ -118,12 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
-              width: double.infinity,
-              child: const Card(
-                child: Text("chart"),
-              ),
-            ),
+            Chart(recentTransactions),
             TransactionsList(transactions),
           ],
         ),
