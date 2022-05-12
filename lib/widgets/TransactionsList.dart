@@ -18,10 +18,10 @@ class TransactionsList extends StatelessWidget {
                   'No transactions added yet!',
                   style: Theme.of(context).textTheme.headline6,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
-                Container(
+                SizedBox(
                     height: 200,
                     child: Image.asset(
                       'assets/images/waiting.png',
@@ -35,7 +35,7 @@ class TransactionsList extends StatelessWidget {
                   child: Row(
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.symmetric(
+                        margin: const EdgeInsets.symmetric(
                           vertical: 10,
                           horizontal: 15,
                         ),
@@ -45,13 +45,18 @@ class TransactionsList extends StatelessWidget {
                             width: 2,
                           ),
                         ),
-                        padding: EdgeInsets.all(10),
-                        child: Text(
-                          '\$${transactions[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Theme.of(context).primaryColor,
+                        padding: const EdgeInsets.all(10),
+                        child: SizedBox(
+                          width: 90,
+                          child: FittedBox(
+                            child: Text(
+                              '\$${transactions[index].amount.toStringAsFixed(2)}',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                            ),
                           ),
                         ),
                       ),
@@ -64,7 +69,7 @@ class TransactionsList extends StatelessWidget {
                           ),
                           Text(
                             DateFormat.yMMMd().format(transactions[index].date),
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.grey,
                             ),
                           ),
