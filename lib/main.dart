@@ -124,6 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
         widget.title,
       ),
     );
+    final mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
       appBar: appBar,
@@ -132,18 +133,16 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
-              height: (MediaQuery.of(context).size.height -
+              height: (mediaQuery.size.height -
                       appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
-                  (Orientation.landscape == MediaQuery.of(context).orientation
-                      ? 0.5
-                      : 0.3),
+                      mediaQuery.padding.top) *
+                  (Orientation.landscape == mediaQuery.orientation ? 0.5 : 0.3),
               child: Chart(recentTransactions),
             ),
             SizedBox(
-              height: (MediaQuery.of(context).size.height -
+              height: (mediaQuery.size.height -
                       appBar.preferredSize.height -
-                      MediaQuery.of(context).padding.top) *
+                      mediaQuery.padding.top) *
                   0.7,
               child: TransactionsList(transactions, deleteTransaction),
             ),

@@ -11,6 +11,8 @@ class TransactionsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
     return Container(
       child: transactions.isEmpty
           ? LayoutBuilder(builder: ((context, constraints) {
@@ -25,8 +27,7 @@ class TransactionsList extends StatelessWidget {
                   ),
                   SizedBox(
                       height: constraints.maxHeight *
-                          (MediaQuery.of(context).orientation ==
-                                  Orientation.landscape
+                          (mediaQuery.orientation == Orientation.landscape
                               ? 0.3
                               : 0.6),
                       child: Image.asset(
