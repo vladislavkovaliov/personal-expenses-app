@@ -123,6 +123,12 @@ class _MyHomePageState extends State<MyHomePage> {
       title: Text(
         widget.title,
       ),
+      actions: [
+        GestureDetector(
+          child: Icon(Icons.add),
+          onTap: () => startNewTransaction(context),
+        ),
+      ],
     );
     final mediaQuery = MediaQuery.of(context);
 
@@ -147,12 +153,6 @@ class _MyHomePageState extends State<MyHomePage> {
               child: TransactionsList(transactions, deleteTransaction),
             ),
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => startNewTransaction(context),
-        child: const Icon(
-          Icons.add,
         ),
       ),
     );
