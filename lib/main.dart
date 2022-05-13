@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:personal_expenses_app/models/transaction.dart';
 import 'package:personal_expenses_app/widgets/chart.dart';
 import 'package:personal_expenses_app/widgets/new_transaction.dart';
@@ -13,27 +15,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const CupertinoApp(
       title: 'Personal Expenses',
-      theme: ThemeData(
+      theme: CupertinoThemeData(
         primaryColor: Colors.blueAccent,
-        fontFamily: 'Quicksand',
-        textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: const TextStyle(
-                fontFamily: 'OpenSans',
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
+        textTheme: CupertinoTextThemeData(
+            navTitleTextStyle: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 20.0,
+              color: Colors.blueAccent,
+              fontWeight: FontWeight.bold,
             ),
-        appBarTheme: const AppBarTheme(
-          titleTextStyle: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 20.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+            textStyle: TextStyle(
+              fontSize: 18,
+              fontFamily: 'Quicksand',
+              fontWeight: FontWeight.bold,
+            )),
       ),
-      home: const MyHomePage(title: 'Personal Expenses'),
+
+      // theme: ThemeData(
+      //   primaryColor: Colors.blueAccent,
+      //   fontFamily: 'Quicksand',
+      //   textTheme: ThemeData.light().textTheme.copyWith(
+      //         headline6: const TextStyle(
+      //           fontFamily: 'OpenSans',
+      //           fontSize: 18.0,
+      //           fontWeight: FontWeight.bold,
+      //         ),
+      //       ),
+      //   appBarTheme: const AppBarTheme(
+      //     titleTextStyle: TextStyle(
+      //       fontFamily: 'OpenSans',
+      //       fontSize: 20.0,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      // ),
+      home: MyHomePage(title: 'Personal Expenses'),
     );
   }
 }
@@ -103,15 +121,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void startNewTransaction(BuildContext context) {
-    showModalBottomSheet(
+    showCupertinoModalPopup(
       context: context,
       builder: (_) {
         return GestureDetector(
           child: NewTransaction(addTransaction),
+          // child: Text('42'),
           onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
-          behavior: HitTestBehavior.opaque,
+          // behavior: HitTestBehavior.opaque,
         );
       },
     );
@@ -119,40 +138,47 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final appBar = AppBar(
-      title: Text(
+    final PreferredSizeWidget appBar = CupertinoNavigationBar(
+      middle: Text(
         widget.title,
       ),
-      actions: [
-        GestureDetector(
-          child: Icon(Icons.add),
-          onTap: () => startNewTransaction(context),
-        ),
-      ],
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTap: () => startNewTransaction(context),
+            child: const Icon(CupertinoIcons.add),
+          ),
+        ],
+      ),
     );
     final mediaQuery = MediaQuery.of(context);
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  (Orientation.landscape == mediaQuery.orientation ? 0.5 : 0.3),
-              child: Chart(recentTransactions),
-            ),
-            SizedBox(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.7,
-              child: TransactionsList(transactions, deleteTransaction),
-            ),
-          ],
+    return CupertinoPageScaffold(
+      navigationBar: appBar as ObstructingPreferredSizeWidget,
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    (Orientation.landscape == mediaQuery.orientation
+                        ? 0.5
+                        : 0.3),
+                child: Chart(recentTransactions),
+              ),
+              SizedBox(
+                height: (mediaQuery.size.height -
+                        appBar.preferredSize.height -
+                        mediaQuery.padding.top) *
+                    0.7,
+                child: TransactionsList(transactions, deleteTransaction),
+              ),
+            ],
+          ),
         ),
       ),
     );

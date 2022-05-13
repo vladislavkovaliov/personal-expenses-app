@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:personal_expenses_app/models/transaction.dart';
@@ -12,7 +13,8 @@ class TransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final theme = Theme.of(context);
+    final theme = CupertinoThemeData().resolveFrom(context);
+
 
     return Container(
       child: transactions.isEmpty
@@ -21,7 +23,7 @@ class TransactionsList extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     'No transactions added yet!',
-                    style: theme.textTheme.headline6,
+                    style: theme.textTheme.textStyle,
                   ),
                   const SizedBox(
                     height: 20,
@@ -67,7 +69,7 @@ class TransactionsList extends StatelessWidget {
                   ),
                   title: Text(
                     transactions[index].title,
-                    style: theme.textTheme.headline6,
+                    style: theme.textTheme.textStyle,
                   ),
                   subtitle: Text(
                     DateFormat.yMMMd().format(transactions[index].date),
@@ -79,7 +81,7 @@ class TransactionsList extends StatelessWidget {
                     icon: const Icon(
                       Icons.delete,
                     ),
-                    color: theme.errorColor,
+                    color: Colors.red,
                     onPressed: () => deleteTransaction(transactions[index].id),
                   ),
                 );

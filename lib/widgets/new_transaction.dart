@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
@@ -57,7 +59,58 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
-    final theme = Theme.of(context);
+    final theme = CupertinoThemeData().resolveFrom(context);
+
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 4.0,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: mediaQuery.viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              CupertinoFormSection(
+                // margin: EdgeInsets.all(1),
+                children: [
+                  CupertinoTextFormFieldRow(
+                    placeholder: "Title",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    textInputAction: TextInputAction.next,
+                  ),
+                ],
+              ),
+              CupertinoFormSection(
+                // margin: EdgeInsets.all(1),
+                children: [
+                  CupertinoTextFormFieldRow(
+                    placeholder: "Amount",
+                    style: TextStyle(
+                      color: Colors.black,
+                    ),
+                    keyboardType: TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                  ),
+                ],
+              ),
+              // TextField(
+              //   controller: titleController,
+              //   decoration: const InputDecoration(
+              //     labelText: 'Title',
+              //   ),
+              // ),
+            ],
+          ),
+        ),
+      ),
+    );
 
     return SingleChildScrollView(
       child: Card(
