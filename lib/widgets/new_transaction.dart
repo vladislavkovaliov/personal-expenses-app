@@ -56,65 +56,72 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              controller: titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 4.0,
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 10,
+            left: 10,
+            right: 10,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                controller: titleController,
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                ),
               ),
-            ),
-            TextField(
-              controller: amountController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Amount',
+              TextField(
+                controller: amountController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  labelText: 'Amount',
+                ),
               ),
-            ),
-            SizedBox(
-              height: 80,
-              child: Row(
-                children: [
-                  Text(
-                    DateFormat.yMd().format(selectedDate),
-                  ),
-                  TextButton(
-                    onPressed: () => presentDatePicker(),
-                    child: Text(
-                      "Chose Date",
-                      style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+              SizedBox(
+                height: 80,
+                child: Row(
+                  children: [
+                    Text(
+                      DateFormat.yMd().format(selectedDate),
                     ),
-                  )
-                ],
-              ),
-            ),
-            TextButton(
-              style: ElevatedButton.styleFrom(
-                onPrimary: Colors.black87,
-                primary: const Color.fromARGB(255, 56, 131, 245),
-                minimumSize: const Size(88, 36),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(2)),
+                    TextButton(
+                      onPressed: () => presentDatePicker(),
+                      child: Text(
+                        "Chose Date",
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
               ),
-              onPressed: submitData,
-              child: const Text(
-                'Add Transaction',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+              TextButton(
+                style: ElevatedButton.styleFrom(
+                  onPrimary: Colors.black87,
+                  primary: const Color.fromARGB(255, 56, 131, 245),
+                  minimumSize: const Size(88, 36),
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(2)),
+                  ),
+                ),
+                onPressed: submitData,
+                child: const Text(
+                  'Add Transaction',
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
