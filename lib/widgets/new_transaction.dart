@@ -57,6 +57,7 @@ class _NewTransactionState extends State<NewTransaction> {
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
+    final theme = Theme.of(context);
 
     return SingleChildScrollView(
       child: Card(
@@ -79,7 +80,7 @@ class _NewTransactionState extends State<NewTransaction> {
               ),
               TextField(
                 controller: amountController,
-                keyboardType: TextInputType.numberWithOptions(
+                keyboardType: const TextInputType.numberWithOptions(
                   decimal: true,
                 ),
                 decoration: const InputDecoration(
@@ -98,7 +99,7 @@ class _NewTransactionState extends State<NewTransaction> {
                       child: Text(
                         "Chose Date",
                         style: TextStyle(
-                          color: Theme.of(context).primaryColor,
+                          color: theme.primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
