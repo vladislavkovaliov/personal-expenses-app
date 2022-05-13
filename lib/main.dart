@@ -135,7 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
               height: (MediaQuery.of(context).size.height -
                       appBar.preferredSize.height -
                       MediaQuery.of(context).padding.top) *
-                  0.3,
+                  (Orientation.landscape == MediaQuery.of(context).orientation
+                      ? 0.5
+                      : 0.3),
               child: Chart(recentTransactions),
             ),
             SizedBox(
