@@ -68,7 +68,7 @@ class TransactionsList extends StatelessWidget {
                     ),
                   ),
                   trailing: IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.delete,
                     ),
                     color: Theme.of(context).errorColor,

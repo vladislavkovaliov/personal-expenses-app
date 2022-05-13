@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 class NewTransaction extends StatefulWidget {
   final Function addTransaction;
 
-  NewTransaction(this.addTransaction, {Key? key}) : super(key: key);
+  const NewTransaction(this.addTransaction, {Key? key}) : super(key: key);
 
   @override
   State<NewTransaction> createState() => _NewTransactionState();
@@ -18,7 +18,7 @@ class _NewTransactionState extends State<NewTransaction> {
 
   void submitData() {
     final title = titleController.text;
-    final amount;
+    final double amount;
 
     if (amountController.text.isEmpty) {
       amount = 0;
@@ -76,14 +76,12 @@ class _NewTransactionState extends State<NewTransaction> {
                 labelText: 'Amount',
               ),
             ),
-            Container(
+            SizedBox(
               height: 80,
               child: Row(
                 children: [
                   Text(
-                    selectedDate == null
-                        ? 'No Date Chonsen!'
-                        : DateFormat.yMd().format(selectedDate),
+                    DateFormat.yMd().format(selectedDate),
                   ),
                   TextButton(
                     onPressed: () => presentDatePicker(),
@@ -101,9 +99,9 @@ class _NewTransactionState extends State<NewTransaction> {
             TextButton(
               style: ElevatedButton.styleFrom(
                 onPrimary: Colors.black87,
-                primary: Color.fromARGB(255, 56, 131, 245),
-                minimumSize: Size(88, 36),
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                primary: const Color.fromARGB(255, 56, 131, 245),
+                minimumSize: const Size(88, 36),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(2)),
                 ),

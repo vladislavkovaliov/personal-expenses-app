@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; // ignore: file_names
 import 'package:intl/intl.dart';
 import 'package:personal_expenses_app/models/transaction.dart';
-import 'package:personal_expenses_app/widgets/ChartBar.dart';
+import 'package:personal_expenses_app/widgets/chart_bar.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;

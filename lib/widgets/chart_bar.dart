@@ -14,7 +14,7 @@ class ChartBar extends StatelessWidget {
     return LayoutBuilder(builder: (ctx, constraints) {
       return Column(
         children: [
-          Container(
+          SizedBox(
             height: constraints.maxHeight * 0.15,
             child: FittedBox(
               child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
@@ -23,14 +23,14 @@ class ChartBar extends StatelessWidget {
           SizedBox(
             height: constraints.maxHeight * 0.05,
           ),
-          Container(
+          SizedBox(
             height: constraints.maxHeight * 0.6,
             width: 10,
             child: Stack(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: Color.fromRGBO(220, 220, 220, 1),
+                    color: const Color.fromRGBO(220, 220, 220, 1),
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: Colors.grey,
@@ -53,7 +53,7 @@ class ChartBar extends StatelessWidget {
           SizedBox(
             height: constraints.maxHeight * 0.05,
           ),
-          Container(
+          SizedBox(
             height: constraints.maxHeight * 0.15,
             child: FittedBox(
               child: Text(label),

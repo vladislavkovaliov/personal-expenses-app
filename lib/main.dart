@@ -1,10 +1,8 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:personal_expenses_app/models/transaction.dart';
-import 'package:personal_expenses_app/widgets/Chart.dart';
-import 'package:personal_expenses_app/widgets/NewTransaction.dart';
-import 'package:personal_expenses_app/widgets/TransactionsList.dart';
+import 'package:personal_expenses_app/widgets/chart.dart';
+import 'package:personal_expenses_app/widgets/new_transaction.dart';
+import 'package:personal_expenses_app/widgets/transactions_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -133,14 +131,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               height: (MediaQuery.of(context).size.height -
                       appBar.preferredSize.height -
                       MediaQuery.of(context).padding.top) *
                   0.3,
               child: Chart(recentTransactions),
             ),
-            Container(
+            SizedBox(
               height: (MediaQuery.of(context).size.height -
                       appBar.preferredSize.height -
                       MediaQuery.of(context).padding.top) *
