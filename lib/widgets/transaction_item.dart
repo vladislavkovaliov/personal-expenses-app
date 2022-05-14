@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:personal_expenses_app/models/transaction.dart';
 
 class TransactionItem extends StatelessWidget {
@@ -6,13 +8,14 @@ class TransactionItem extends StatelessWidget {
     Key? key,
     required this.theme,
     required this.transaction,
+    required this.deleteTransaction,
   }) : super(key: key);
 
   final ThemeData theme;
   final Transaction transaction;
+  final Function deleteTransaction;
 
-  @override
-  Widget build(BuildContext context) {
+  Card buildLeading() {
     return Card(
       child: Container(
         padding: const EdgeInsets.all(10),
@@ -36,6 +39,42 @@ class TransactionItem extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  IconButton buildTrailing() {
+    return IconButton(
+      icon: const Icon(
+        Icons.delete,
+      ),
+      color: theme.errorColor,
+      onPressed: () => deleteTransaction(transaction.id),
+    );
+  }
+
+  Text buildSubtitle() {
+    return Text(
+      DateFormat.yMMMd().format(transaction.date),
+      style: const TextStyle(
+        color: Colors.grey,
+      ),
+    );
+  }
+
+  Text buildTitle() {
+    return Text(
+      transaction.title,
+      style: theme.textTheme.headline6,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: buildLeading(),
+      title: buildTitle(),
+      subtitle: buildSubtitle(),
+      trailing: buildTrailing(),
     );
   }
 }

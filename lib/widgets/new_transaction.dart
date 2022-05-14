@@ -54,6 +54,61 @@ class _NewTransactionState extends State<NewTransaction> {
     });
   }
 
+  TextField buildTextFieldAmount() {
+    return TextField(
+      controller: amountController,
+      keyboardType: const TextInputType.numberWithOptions(
+        decimal: true,
+      ),
+      decoration: const InputDecoration(
+        labelText: 'Amount',
+      ),
+    );
+  }
+
+  TextField buildTextFieldTitle() {
+    return TextField(
+      controller: titleController,
+      decoration: const InputDecoration(
+        labelText: 'Title',
+      ),
+    );
+  }
+
+  TextButton buildPresentDatePickerButton(ThemeData theme) {
+    return TextButton(
+      onPressed: () => presentDatePicker(),
+      child: Text(
+        "Choose Date",
+        style: TextStyle(
+          color: theme.primaryColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+
+  TextButton buildAddTransactionTextButton() {
+    return TextButton(
+      style: ElevatedButton.styleFrom(
+        onPrimary: Colors.black87,
+        primary: const Color.fromARGB(255, 56, 131, 245),
+        minimumSize: const Size(88, 36),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(2)),
+        ),
+      ),
+      onPressed: submitData,
+      child: const Text(
+        'Add Transaction',
+        style: TextStyle(
+          color: Color.fromARGB(255, 255, 255, 255),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -72,21 +127,8 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              TextField(
-                controller: titleController,
-                decoration: const InputDecoration(
-                  labelText: 'Title',
-                ),
-              ),
-              TextField(
-                controller: amountController,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: const InputDecoration(
-                  labelText: 'Amount',
-                ),
-              ),
+              buildTextFieldTitle(),
+              buildTextFieldAmount(),
               SizedBox(
                 height: 80,
                 child: Row(
@@ -94,37 +136,11 @@ class _NewTransactionState extends State<NewTransaction> {
                     Text(
                       DateFormat.yMd().format(selectedDate),
                     ),
-                    TextButton(
-                      onPressed: () => presentDatePicker(),
-                      child: Text(
-                        "Chose Date",
-                        style: TextStyle(
-                          color: theme.primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )
+                    buildPresentDatePickerButton(theme)
                   ],
                 ),
               ),
-              TextButton(
-                style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.black87,
-                  primary: const Color.fromARGB(255, 56, 131, 245),
-                  minimumSize: const Size(88, 36),
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(2)),
-                  ),
-                ),
-                onPressed: submitData,
-                child: const Text(
-                  'Add Transaction',
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                  ),
-                ),
-              ),
+              buildAddTransactionTextButton(),
             ],
           ),
         ),

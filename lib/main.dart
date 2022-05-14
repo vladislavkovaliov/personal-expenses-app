@@ -117,19 +117,43 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final appBar = AppBar(
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
       title: Text(
         widget.title,
       ),
       actions: [
         GestureDetector(
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
           onTap: () => startNewTransaction(context),
         ),
       ],
     );
+  }
+
+  SizedBox buildTransactionsList(MediaQueryData mediaQuery, AppBar appBar) {
+    return SizedBox(
+      height: (mediaQuery.size.height -
+              appBar.preferredSize.height -
+              mediaQuery.padding.top) *
+          0.7,
+      child: TransactionsList(transactions, deleteTransaction),
+    );
+  }
+
+  SizedBox buildChart(MediaQueryData mediaQuery, AppBar appBar) {
+    return SizedBox(
+      height: (mediaQuery.size.height -
+              appBar.preferredSize.height -
+              mediaQuery.padding.top) *
+          (Orientation.landscape == mediaQuery.orientation ? 0.5 : 0.3),
+      child: Chart(recentTransactions),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final appBar = buildAppBar(context);
     final mediaQuery = MediaQuery.of(context);
 
     return Scaffold(
@@ -138,20 +162,8 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  (Orientation.landscape == mediaQuery.orientation ? 0.5 : 0.3),
-              child: Chart(recentTransactions),
-            ),
-            SizedBox(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.7,
-              child: TransactionsList(transactions, deleteTransaction),
-            ),
+            buildChart(mediaQuery, appBar),
+            buildTransactionsList(mediaQuery, appBar),
           ],
         ),
       ),
